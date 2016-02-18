@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>login form</title>
+    
+    
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+
+    </style>
+
+    
+        <script src="js/prefixfree.min.js">function validateForm() {
+            var x = document.forms["register"]["fname"].value;
+            if (x == null || x == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+
+        </script>
+        <div class="banner"></div>
+
+    
+  </head>
+
+  <body>
+
+<div class="division">
+<div class="login">
+  <header class="login-header"><span class="text">LOGIN</span><span class="loader"></span></header>
+  <form class="login-form">
+    <input type="text" placeholder="Email" class="login-input" required/>
+    <input type="password" placeholder="Password" class="login-input" required/>
+    <button type="submit" class="login-btn">login</button>
+      <a type="submit" class="login-btn" href="Map.html">register</a>
+  </form>
+</div>
+<div class="register">
+    <header class="register-header"><span class="text">REGISTER</span><span class="loader"></span></header>
+    <form class="register-form" onsubmit="return validateForm()" method="post">
+        <input type="text" name="fname" placeholder="First Name" class="register-input" required/>
+        <input type="text" name="lname" placeholder="Last Name" class="register-input" required/>
+        <input type="text" name="email" placeholder="Email" class="register-input" required/>
+        <input type="number" name="age" placeholder="Age" class="register-input" required/>
+        <input type="password" name="password" placeholder="Password" class="register-input" required/>
+        <button type="submit" class="register-btn" >register</button>
+        <a type="submit" class="register-btn" href="#popup1">register</a>
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>REGISTERED SUCCESSFULLY</h2>
+                <a class="close" href="index.html">&times;</a>
+                <div class="content">
+                    You are registered successfully.Enjoy our service!!
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src="js/index.js"></script>
+
+    
+    
+    
+  </body>
+</html>

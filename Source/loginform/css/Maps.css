@@ -1,0 +1,91 @@
+* {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    background: url("../images/bg.jpg");
+}
+
+.row{
+    position: absolute;
+    top: 30%;
+    left: 20%;
+}
+.weatherModule {
+    background: #f2f2f2;
+    height: 150px;
+    width: 250px;
+    border: 1px dashed #ccc;
+    padding: 1em;
+}
+.weather1{
+    background: rgba(255,255,255,0.5);
+    font-size: 1.5rem;
+    left: 5%;
+    position: absolute;
+    background-size: auto;
+    padding: 1em;
+    bottom: 5%;
+}
+.weather2{
+    background: rgba(255,255,255,0.5);
+    left: 55%;
+    font-size: 1.5rem;
+    position: absolute;
+    background-size: auto;
+    padding: 1em;
+    bottom: 5%;
+}
+.details
+{
+    background: linear-gradient(to bottom,rgba(30, 144, 255, 0.28),rgba(0, 0, 0, 0.46));
+    position: fixed;
+    top: 22%;
+    left: 15%;
+    margin: -10rem 0 0 -10rem;
+    width: 40rem;
+    height: 90%;
+    padding: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.mapicon{
+    position: fixed;
+    top: 8%;
+    left: 18%;
+}
+.sloc {
+    display: block;
+    width: 100%;
+    font-size: 2rem;
+    padding: 1rem 1rem;
+    box-shadow: none;
+    border-color: #ccc;
+    border-width: 0 0 2px 0;
+}
+.sloc + .sloc {
+    margin: 10px 0 0;
+}
+.sloc:focus {
+    outline: none;
+    border-bottom-color: dodgerblue;
+}
+.direction-btn{
+    margin: 30px 80px 50px;
+    font-size: 30px;
+    width: 300px;
+    height: 50px;
+    background: linear-gradient(to right,dodgerblue,white);
+    border: none;
+}
+.cityname1{
+    font-size: 2rem;
+    font-style: oblique;
+    color: mintcream;
+    text-align: center;
+
+}
+.icon{
+    width: 100px;
+}
+

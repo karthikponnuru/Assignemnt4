@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="" data-ng-app="GoogleDirection">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angular Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=true"></script>
+    <link rel="stylesheet" href="css/Maps.css">
+
+    <style>
+        #map-canvas {
+            width: 47%;
+            height:90%;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            background-color:#333 !important;
+
+        }
+    </style>
+</head>
+
+<body>
+<div class="geo" ng-controller="googlemapoutput">
+</div>
+
+<div class="wrapp" ng-controller="googlemapoutput">
+    <div class="details">
+        <div class="weather1"><p class="cityname1">{{city}}</p>
+            <p>Temperature: {{tempid}}&#8451</p>
+            <p>Wind Speed: {{windspeed}}</p>
+            <p>Sky: {{desc}}  <img class="icon" ng-src="http://openweathermap.org/img/w/{{icon}}.png"></p>
+        </div>
+
+        <div class="weather2"><p class="cityname1">{{cityEnd}}</p>
+            <p>Temperature: {{tempidEnd}}&#8451</p>
+            <p>Wind Speed: {{windspeedEnd}}</p>
+            <p>Sky: {{descEnd}}  <img class="icon" ng-src="http://openweathermap.org/img/w/{{iconEnd}}.png"></p>
+        </div>
+        <img src="images/Map-icon.png" class="mapicon">
+    <div class="row">
+        <input type="text"  class="sloc" placeholder="Start Location" ng-model="startlocation" id="startlocation" required/>
+        <input type="text" class="sloc" placeholder="End Location" ng-model="endlocation" id="endlocation" required/>
+        <button id="btn" class="direction-btn" ng-click="calcRoute();getWeatherStart();getWeatherEnd()">
+            Get Direction
+        </button>
+
+        <br/></br>
+
+
+    </div>
+    </div>
+    <div id="map-canvas" ></div>
+</div>
+</body>
+</html>
+
+<script>
+
+
+    angular.module('GoogleDirection', [])
+            .controller('googlemapoutput', function ($scope,$http,$log) {
+
+                var map;
+                var mapOptions;
+                var directionsDisplay = new google.maps.DirectionsRenderer({
+                    draggable: true
+                });
+                var directionsService = new google.maps.DirectionsService();
+
+
+
+                $scope.initialize = function () {
+                    var pos = new google.maps.LatLng(0, 0);
+                    var mapOptions = {
+                        zoom: 5,
+                        center: pos
+                    };
+
+                    map = new google.maps.Map(document.getElementById('map-canvas'),
+                            mapOptions);
+                };
+                $scope.calcRoute = function () {
+                    var end = document.getElementById('endlocation').value;
+                    var start = document.getElementById('startlocation').value;
+
+
+                    var request = {
+                        origin: start,
+                        destination: end,
+                        travelMode: google.maps.TravelMode.DRIVING
+                    };
+
+                    directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setMap(map);
+                            directionsDisplay.setDirections(response);
+                            console.log(status);
+                        }
+
+                    });
+                };
+                $scope.initialize = function () {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        var pos = new google.maps.LatLng(
+                                position.coords.latitude,
+                                position.coords.longitude);
+
+                        var mapOptions = {
+                            zoom: 18,
+                            center: pos
+                        };
+
+                        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+                        var marker = new google.maps.Marker({
+                            position: pos,
+                            map: map
+                        });
+                        map.set('styles',[
+                            {
+                                "featureType": "administrative",
+                                "stylers": [
+                                    {
+                                        "visibility": "on"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "poi",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "labels",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "transit",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "landscape",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "stylers": [
+                                    {
+                                        "visibility": "off"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.local",
+                                "stylers": [
+                                    {
+                                        "visibility": "on"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "visibility": "on"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "stylers": [
+                                    {
+                                        "color": "#84afa3"
+                                    },
+                                    {
+                                        "lightness": 52
+                                    }
+                                ]
+                            },
+                            {
+                                "stylers": [
+                                    {
+                                        "saturation": -17
+                                    },
+                                    {
+                                        "gamma": 0.36
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "transit.line",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#3f518c"
+                                    }
+                                ]
+                            }
+                        ])
+                    });
+                };
+                $scope.getWeatherStart = function() {
+                    var start = document.getElementById('startlocation').value;
+                    $http.get('http://api.openweathermap.org/data/2.5/weather?q='+start+'&appid=aecc1ada15291787e9f4ec95ab382165&units=metric').success(function(data) {
+                        console.log(data);
+                        $scope.city=data.name;
+                        $scope.desc = data.weather[0].main;
+                        $scope.tempid= data.main.temp;
+                        $scope.windspeed = data.wind.speed;
+                        $scope.icon=data.weather[0].icon;
+                    })
+                };
+                $scope.getWeatherEnd = function() {
+                    var end = document.getElementById('endlocation').value;
+                    $http.get('http://api.openweathermap.org/data/2.5/weather?q='+end+'&appid=aecc1ada15291787e9f4ec95ab382165&units=metric').success(function(data) {
+                        console.log(data);
+                        $scope.cityEnd=data.name;
+                        $scope.descEnd = data.weather[0].main;
+                        $scope.tempidEnd= data.main.temp;
+                        $scope.windspeedEnd = data.wind.speed;
+                        $scope.iconEnd=data.weather[0].icon;
+                    })
+                };
+
+                google.maps.event.addDomListener(window, 'load', $scope.initialize);
+
+            });
+
+
+
+</script>
